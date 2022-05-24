@@ -1,8 +1,34 @@
 // import css from './Statistics.module.css';
 
-const Statistics = (props) => {
+const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
     return (
-        <p>Statistics</p>
+        <>
+            <h2>Statistics</h2>
+
+            { total
+            ? (
+                <ul>
+                    <li>
+                    <p>Good: {good}</p>
+                    </li>
+                    <li>
+                    <p>Neutral: {neutral}</p>
+                    </li>
+                    <li>
+                    <p>Bad: {bad}</p>
+                    </li>
+                    <li>
+                    <p>Total: {total}</p>
+                    </li>
+                    <li>
+                    <p>Positive feedback: {positivePercentage}%</p>
+                    </li>
+                </ul>
+            ) : (
+                <p>No relusts</p> 
+            )
+            }
+        </>
     )
 };
 

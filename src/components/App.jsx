@@ -11,10 +11,6 @@ export class App extends Component {
     bad: 0
   }
 
-  event = () => {
-    console.log('work');
-  }
-
   handleClick = (event) => {
 
     this.setState(
@@ -36,50 +32,27 @@ export class App extends Component {
   }
 
   render() {
+    const options = Object.keys(this.state);
+    
+
     return (
       
       <div className={css.App}>
-        <Statistics />
-        <FeedbackOptions /> 
 
         <h1>Please leave feadback</h1>
-        <ul className={css.buttonList}>
-          <li>
-            <button name='good' onClick={this.handleClick}>Good</button>
-          </li>
-          <li>
-            <button name='neutral' onClick={this.handleClick}>Neutral</button>
-          </li>
-          <li>
-            <button name='bad' onClick={this.handleClick}>Bad</button>
-          </li>
-        </ul>
 
-        <h2>Statistics</h2>
+        <FeedbackOptions
+          options={options}
+          onLeaveFeedback={ this.handleClick }/>
 
-        {this.countTotalFeedback()
-          ? (
-              <ul>
-                <li>
-                  <p>Good: {this.state.good}</p>
-                </li>
-                <li>
-                  <p>Neutral: {this.state.neutral}</p>
-                </li>
-                <li>
-                  <p>Bad: {this.state.bad}</p>
-                </li>
-                <li>
-                  <p>Total: {this.countTotalFeedback()}</p>
-                </li>
-                <li>
-                  <p>Positive feedback: {this.countPositiveFeedbackPercentage().toFixed()}%</p>
-                </li>
-              </ul>
-          ) : (
-            <p>No relusts</p> 
-          )
-      }
+        <Statistics
+          good={this.state.good}
+          neutral={this.state.neutral}
+          bad={this.state.bad}
+          total={this.countTotalFeedback()}
+          positivePercentage={this.countPositiveFeedbackPercentage().toFixed()}
+        />
+
       </div>
     )
   }
