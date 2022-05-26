@@ -4,46 +4,36 @@ import Statistics from './Statistics/Statistics';
 import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
 
 export class App extends Component {
-
   state = {
     good: 0,
     neutral: 0,
-    bad: 0
-  }
+    bad: 0,
+  };
 
-  handleClick = (event) => {
+  handleClick = option => {
+    this.setState(prevState => ({
+      [option]: prevState[option] + 1,
+    }));
+  };
 
-    this.setState(
-      (prevState) => ({
-        [event.target.name]: prevState[event.target.name] + 1
-      })
-    )
-  }
-
-  countTotalFeedback = ()  => (
-    this.state.good + this.state.neutral + this.state.bad
-    )
+  countTotalFeedback = () =>
+    this.state.good + this.state.neutral + this.state.bad;
 
   countPositiveFeedbackPercentage = () => {
     const total = this.countTotalFeedback();
     const positiveFeedback = this.state.good;
-    
-    return (positiveFeedback/total*100) || 0
-  }
+
+    return (positiveFeedback / total) * 100 || 0;
+  };
 
   render() {
     const options = Object.keys(this.state);
-    
 
     return (
-      
       <div className={css.App}>
-
         <h1>Please leave feadback</h1>
 
-        <FeedbackOptions
-          options={options}
-          onLeaveFeedback={ this.handleClick }/>
+        <FeedbackOptions options={options} onLeaveFeedback={this.handleClick} />
 
         <Statistics
           good={this.state.good}
@@ -52,9 +42,7 @@ export class App extends Component {
           total={this.countTotalFeedback()}
           positivePercentage={this.countPositiveFeedbackPercentage().toFixed()}
         />
-
       </div>
-    )
+    );
   }
 }
-
